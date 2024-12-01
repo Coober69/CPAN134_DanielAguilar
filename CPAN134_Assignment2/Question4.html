@@ -1,0 +1,45 @@
+<!--CPAN134 Assignment 2 Question 4-->
+<!--Daniel Aguilar-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPAN134 Assignment 2 Question 4: CSS Box Model</title>
+    <style>
+        #box {
+            width: 200px; 
+            height: 200px; 
+            padding: 20px; 
+            border: 5px solid black; 
+            margin: 20px; 
+            background-color: white; 
+            transition: all 0.3s ease; 
+        }
+    </style>
+</head>
+<body>
+    <div id="box">Hover Me! / Click Me!</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const box = document.getElementById('box'); 
+
+            //Event Listener for When the box is clicked
+            box.addEventListener('click', () => {
+                box.style.backgroundColor = 
+                    box.style.backgroundColor === 'lightblue' ? 'lightgreen' : 'lightblue';
+            });
+
+            //Event Listener for when the mouse is detected to be hovering over the box
+            box.addEventListener('mouseover', () => {
+                box.style.borderColor = 'purple';
+            });
+
+            //Event Listener for when the mouse is detected to leave the margins of the box
+            box.addEventListener('mouseout', () => {
+                box.style.borderColor = 'black';
+            });
+        });
+    </script>
+</body>
+</html>
+

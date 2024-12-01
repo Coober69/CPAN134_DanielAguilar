@@ -1,0 +1,34 @@
+<!--CPAN134 Assignment 2 Question 2-->
+<!--Daniel Aguilar-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPAN134 Assignment 2 Question 2: Colour Changing Button</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            /*Added the following to simply center the button on the page, this might have not been taught but I wanted to add it*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 20px 30px;
+            font-size: 16px;
+            transition: background-color 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <button id="myButton" onclick="changeColour(), alert('Button clicked!');">Click Me!</button>
+    <script>
+        function changeColour() {
+            const colours = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+            const randomColour = colours[Math.floor(Math.random() * colours.length)];
+            document.getElementById('myButton').style.backgroundColor = randomColour;
+        }
+    </script>
+</body>
+</html>

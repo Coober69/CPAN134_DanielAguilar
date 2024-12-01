@@ -1,0 +1,67 @@
+<!--CPAN134 Assignment 2 Question 3-->
+<!--Daniel Aguilar-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPAN134 Assignment 2 Question 3: Manipulating the DOM</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f0f0f0;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        li:hover {
+            background-color: #dcdcdc;
+        }
+    </style>
+</head>
+<body>
+
+    <ul id="myList">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+
+    <script>
+        //Function to Add a new item to the list when the page loads
+        window.onload = function () {
+            const ul = document.getElementById("myList");
+            const newLi = document.createElement("li");
+            newLi.textContent = "Fourth item";
+            ul.appendChild(newLi);
+        };
+
+        //Function to Generate a Random String
+        function generateRandomString() {
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+            const length = 10;
+            let result = "";
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        document.addEventListener("click", function (e) {
+            if (e.target.tagName === "LI") {
+                e.target.textContent = generateRandomString();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
