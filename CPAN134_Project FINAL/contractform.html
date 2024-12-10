@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Aguilar's Portfolio - Contact Info</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .powered-by {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav button {
+            background-color: #000000;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            transform: scale(1.1);
+            border-color: blue;
+        }
+
+        nav button:focus {
+            outline: none;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .contact-table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-table td {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .contact-table td img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .contact-table:hover {
+            border-color: blue;
+        }
+
+        .form-container {
+            width: 40%;
+            margin: 50px auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ffffff;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-container:hover {
+            border-color: blue;
+        }
+
+        .form-container input,
+        .form-container textarea,
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #ffffff;
+            background-color: #000000;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            color: #000000;
+        }
+
+        .form-container button {
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #ffffff;
+            color: #000000;
+            transform: scale(1.1);
+            border-color: blue;
+        }
+
+        .intro-paragraph {
+            margin-top: 20px;
+            width: 60%;
+            margin: 20px auto;
+            text-align: left;
+            font-size: 1.1em;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ffffff;
+            transition: border-color 0.3s ease;
+        }
+
+        .intro-paragraph:hover {
+            border-color: blue;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="powered-by">Powered by VSCode</div>
+        <nav>
+            <button onclick="location.href='homepage.html'">Home</button>
+            <button onclick="location.href='biopage.html'">Biography</button>
+            <button onclick="location.href='contractform.html'">Contract</button>
+            <button onclick="location.href='resume.html'">Resume</button>
+        </nav>
+    </header>
+
+    <h1>Daniel's Contract Form / Contact Info</h1>
+
+    <p class="intro-paragraph">Welcome to my Contract Page, the following page is meant for those who want to reach out for my services. I am proficient in Python and C# coding languages, and dabble a bit in JavaScript, Java, HTML, and CSS. Feel free to contact me using the information and form below!</p>
+
+    <table class="contact-table">
+        <tr>
+            <td><img src="images/gmail.png" alt="Gmail"> My Gmail: danielaguilar@gmail.com</td>
+            <td><img src="images/youtube.png" alt="YouTube"> My Youtube Channel: Daniel Aguilar</td>
+        </tr>
+        <tr>
+            <td><img src="images/github.png" alt="GitHub"> My Github Profile: Coober06</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <div class="form-container">
+        <h2>Send Me a Message</h2>
+        <form action="#" method="POST">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <footer>
+        Daniel Aguilar's Portfolio
+    </footer>
+
+    <script>
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('mouseover', () => {
+                button.style.transform = 'scale(1.1)';
+                button.style.borderColor = 'blue';
+            });
+
+            button.addEventListener('mouseout', () => {
+                button.style.transform = 'scale(1)';
+                button.style.borderColor = '#ffffff';
+            });
+        });
+
+        const formContainer = document.querySelector('.form-container');
+        formContainer.addEventListener('mouseover', () => {
+            formContainer.style.borderColor = 'blue';
+        });
+
+        formContainer.addEventListener('mouseout', () => {
+            formContainer.style.borderColor = '#ffffff';
+        });
+    </script>
+</body>
+</html>

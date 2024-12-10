@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Aguilar's Portfolio - Home Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        header .powered-by {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav button {
+            color: #ffffff;
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            transform: scale(1.1);
+            border-color: blue;
+        }
+
+        .circle-button {
+            margin: 50px auto;
+            width: 100px;
+            height: 100px;
+            background-color: #000000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: #ffffff;
+            font-weight: bold;
+            border: 2px solid #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .circle-button:hover {
+            transform: scale(1.1);
+            border-color: blue;
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .text-content {
+            text-align: left;
+            width: 40%;
+            margin-left: 5%;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        .text-content:hover {
+            border-color: blue;
+        }
+
+        .video-container {
+            width: 40%;
+            margin-right: 5%;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .video-container:hover {
+            border-color: blue;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="powered-by">Powered by VSCode</div>
+        <nav>
+            <button onclick="window.location.href='homepage.html'">Home</button>
+            <button onclick="window.location.href='biopage.html'">Biography</button>
+            <button onclick="window.location.href='contractform.html'">Contract</button>
+            <button onclick="window.location.href='resume.html'">Resume</button>
+        </nav>
+    </header>
+
+    <h1>Welcome to Daniel Aguilar's Portfolio</h1>
+
+    <div class="circle-button" onclick="revealContent()">Click Me</div>
+
+    <div class="hidden-content">
+        <div class="text-content">
+            <p>Welcome to Daniel Aguilar's Home Page!</p>
+            <p>On the top, find navigation buttons to view different aspects of my portfolio!</p>
+            <br>
+            <p>You can see my biography, my contract, and my resume!</p>
+            <p>If you wish to contact me, please see the contract form!</p>
+            <br>
+            <p>Feel free to see the video to the right, of pretty forest vibes</p>
+        </div>
+        <div class="video-container">
+            <video controls autoplay muted>
+                <source src="videos/forest.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <footer>
+        Daniel Aguilar's Portfolio
+    </footer>
+
+    <script>
+        function revealContent() {
+            const content = document.querySelector('.hidden-content');
+            if (content.style.display === "none" || !content.style.display) {
+                content.style.display = "flex";
+                setTimeout(() => {
+                    content.style.opacity = 1;
+                }, 10);
+            } else {
+                content.style.opacity = 0;
+                setTimeout(() => {
+                    content.style.display = "none";
+                }, 1500);
+            }
+        }
+
+        const navButtons = document.querySelectorAll('nav button');
+        navButtons.forEach(button => {
+            button.addEventListener('mouseover', () => {
+                button.style.transform = 'scale(1.1)';
+                button.style.borderColor = 'blue';
+            });
+
+            button.addEventListener('mouseout', () => {
+                button.style.transform = 'scale(1)';
+                button.style.borderColor = '#ffffff';
+            });
+        });
+
+        const clickMeButton = document.querySelector('.circle-button');
+        clickMeButton.addEventListener('mouseover', () => {
+            clickMeButton.style.transform = 'scale(1.1)';
+            clickMeButton.style.borderColor = 'blue';
+        });
+
+        clickMeButton.addEventListener('mouseout', () => {
+            clickMeButton.style.transform = 'scale(1)';
+            clickMeButton.style.borderColor = '#ffffff';
+        });
+    </script>
+</body>
+</html>
