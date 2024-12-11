@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Aguilar's Portfolio - Resume</title>
+    <title>Daniel Aguilar's Portfolio - About Me</title>
     <style>
         body {
             margin: 0;
@@ -14,13 +14,14 @@
             text-align: center;
         }
 
-        header, footer {
+        header {
             background-color: #000000;
             color: #ffffff;
             padding: 10px 0;
+            position: relative;
         }
 
-        .powered-by {
+        header .powered-by {
             position: absolute;
             top: 10px;
             left: 20px;
@@ -56,39 +57,20 @@
             outline: none;
         }
 
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .pdf-container {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .pdf-container iframe {
-            width: 80%;
-            height: 600px;
-            border: none;
-        }
-
-        .intro-paragraph {
-            margin-top: 20px;
-            width: 60%;
-            margin: 20px auto;
+        .text-content {
             text-align: left;
-            font-size: 1.1em;
-            background-color: rgba(0, 0, 0, 0.5);
+            width: 40%;
+            margin-left: 5%;
+            background-color: #ffffff;
+            color: #000000;
             padding: 20px;
             border-radius: 8px;
             border: 2px solid #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: border-color 0.3s ease;
         }
 
-        .intro-paragraph:hover {
+        .text-content:hover {
             border-color: blue;
         }
 
@@ -101,6 +83,31 @@
             padding: 10px 0;
         }
 
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .image-container div {
+            text-align: center;
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .image-container img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-description {
+            color: #ffffff;
+            font-size: 16px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -111,27 +118,37 @@
             <button onclick="location.href='biopage.html'">Biography</button>
             <button onclick="location.href='contractform.html'">Contract</button>
             <button onclick="location.href='resume.html'">Resume</button>
-            <button onclick="location.href=`mywork.html`">My Works</button>
-            <button onclick="location.href=`funfacts.html`">Some Stuff About Me</button>
+            <button onclick="location.href='mywork.html'">My Works</button>
+            <button onclick="location.href='funfacts.html'">Some Stuff About Me</button>
         </nav>
     </header>
 
-    <h1>Daniel's Resume</h1>
+    <h1>Fun Facts About Daniel</h1>
 
-    <p class="intro-paragraph">Welcome to my Resume! If you wish to see a list of my skills, accomplishments, work experience, etc, please see below!</p>
-    <p><strong>LEGAL NOTICE: THE FOLLOWING RESUME BELOW IS OUTDATED</strong></p>
+    <p>Welcome to the "About Me" part of my Portfolio!</p>
+    <p>Below you can find many different pictures of things I enjoy, as well as a little description for each of them!</p>
 
-    <div class="pdf-container">
-        <embed src="documents/resume.pdf" width="80%" height="600px" type="application/pdf">
+    <!-- Flexbox for Images -->
+    <div class="image-container">
+        <div>
+            <img src="images/avalanche.png" alt="Colorado Avalanche" />
+            <p class="image-description">This is my favourite team in the NHL, The Colorado Avalanche.</p>
+        </div>
+
+        <div>
+            <img src="images/joey.png" alt="Joey" />
+            <p class="image-description">This is Joey, I like Joey.</p>
+        </div>
+
+        <div>
+            <img src="images/cat.png" alt="Milo the Cat" />
+            <p class="image-description">This is my Cat, Milo, I also like my cat.</p>
+        </div>
     </div>
 
-    <footer>
-        Daniel Aguilar's Portfolio
-    </footer>
-
     <script>
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => {
+        const navButtons = document.querySelectorAll('nav button');
+        navButtons.forEach(button => {
             button.addEventListener('mouseover', () => {
                 button.style.transform = 'scale(1.1)';
                 button.style.borderColor = 'blue';
@@ -142,15 +159,9 @@
                 button.style.borderColor = '#ffffff';
             });
         });
-
-        const introParagraph = document.querySelector('.intro-paragraph');
-        introParagraph.addEventListener('mouseover', () => {
-            introParagraph.style.borderColor = 'blue';
-        });
-
-        introParagraph.addEventListener('mouseout', () => {
-            introParagraph.style.borderColor = '#ffffff';
-        });
     </script>
+    <footer>
+        Daniel Aguilar's Portfolio
+    </footer>
 </body>
 </html>

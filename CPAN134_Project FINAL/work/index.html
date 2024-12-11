@@ -1,0 +1,167 @@
+<!--CPAN113 Daniel Aguilar Assignment 2-->
+<!--HTML SECTION-->
+<!--LUCKY SLOT MACHINE-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slot Machine</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    margin: 50px auto;
+    width: 300px;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #fff;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  #slot-machine {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+  }
+  
+  .slot {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e6e6fa;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  #message {
+    margin-top: 20px;
+    color: #333;
+    font-weight: bold;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Slot Machine</h1>
+    <div id="slot-machine">
+      <div class="slot" id="slot1">?</div>
+      <div class="slot" id="slot2">?</div>
+      <div class="slot" id="slot3">?</div>
+    </div>
+    <button id="spin-button">Spin</button>
+    <div id="message"></div>
+  </div>
+  <script>
+    //Slot Class
+class Slot {
+    constructor(apiUrl) {
+      this.apiUrl = apiUrl;
+    }
+  
+    async getRandomNumber() {
+      try {
+        const response = await fetch(this.apiUrl);
+        if (!response.ok) {
+          throw new Error("Failed to fetch data from API");
+        }
+        const data = await response.json();
+        if (data && data.length > 0 && typeof data[0].random === "number") {
+          return data[0].random; 
+        } else {
+          throw new Error("Unexpected API response format");
+        }
+      } catch (error) {
+        console.error("Error fetching random number:", error);
+        return Math.floor(Math.random() * 9) + 1; 
+      }
+    }
+  }
+  
+  //Slot Machine Class
+  class SlotMachine {
+    constructor() {
+      this.slots = [];
+      this.apiUrl = "https://csrng.net/csrng/csrng.php?min=1&max=9";
+      this.messageEl = document.getElementById("message");
+      this.spinButton = document.getElementById("spin-button");
+  
+      //Initialize Slot objects
+      for (let i = 1; i <= 3; i++) {
+        this.slots.push(new Slot(this.apiUrl));
+      }
+  
+      //Attach Event listener to the spin button
+      this.spinButton.addEventListener("click", () => this.spin());
+    }
+  
+    async spin() {
+      this.messageEl.textContent = "Spinning...";
+      const slotElements = [
+        document.getElementById("slot1"),
+        document.getElementById("slot2"),
+        document.getElementById("slot3"),
+      ];
+  
+      const promises = this.slots.map((slot) => slot.getRandomNumber());
+  
+      try {
+        const results = await Promise.all(promises);
+  
+        results.forEach((result, index) => {
+          slotElements[index].textContent = result;
+        });
+  
+        //Check the result after updating slots
+        this.checkResult(results);
+      } catch (error) {
+        console.error("Error spinning the slots:", error);
+        this.messageEl.textContent = "Error spinning the slots. Try again!";
+      }
+    }
+  
+    checkResult(results) {
+      const [slot1, slot2, slot3] = results;
+      if (slot1 === slot2 && slot2 === slot3) {
+        this.messageEl.textContent = "Jackpot! You Win!";
+      } else {
+        this.messageEl.textContent = "Try Again!";
+      }
+    }
+  }
+  
+  //Initialize Slot Machine with another Event Listener
+  document.addEventListener("DOMContentLoaded", () => {
+    new SlotMachine();
+  });  
+  </script>
+</body>
+</html>

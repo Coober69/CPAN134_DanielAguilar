@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aim Trainer</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #121212; /* Start in dark mode */
+      transition: background-color 0.3s;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .start-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    .start-screen button {
+      padding: 15px 30px;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      margin: 10px;
+    }
+
+    img {
+      position: absolute;
+      cursor: pointer;
+    }
+
+    #theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+    }
+
+    .game-info {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 18px;
+    }
+
+    #main-menu-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- start screen -->
+  <div class="start-screen" id="start-screen">
+    <h1>Welcome to Aim Trainer</h1>
+    <p>Select a game mode:</p>
+    <label for="timer-input">Set Timer (seconds):</label>
+    <input type="number" id="timer-input" min="1" value="20">
+    <button id="random-size-mode">Random Size Mode</button>
+    <button id="regular-mode">Regular Mode</button>
+    <button id="infinite-mode">Infinite Mode</button>
+  </div>
+
+  <!-- game info -->
+  <div class="game-info" id="game-info" style="display: none;">
+    <p>Time Left: <span id="timer">0</span> seconds</p>
+    <p>Score: <span id="score">0</span></p>
+    <button id="theme-toggle">Switch to Light Mode</button>
+    <button id="stop-game">Stop Game</button>
+    <!-- Main Menu button -->
+    <button id="main-menu-button" onclick="window.location.href='MainMenu.html'">Main Menu</button>
+  </div>
+
+  <img id="target" src="target.png" alt="Target" style="display: none;">
+
+  <script>
+    const startScreen = document.getElementById('start-screen');
+    const randomSizeModeButton = document.getElementById('random-size-mode');
+    const regularModeButton = document.getElementById('regular-mode');
+    const infiniteModeButton = document.getElementById('infinite-mode');
+    const gameInfo = document.getElementById('game-info');
+    const target = document.getElementById('target');
+    const themeToggle = document.getElementById('theme-toggle');
+    const stopGameButton = document.getElementById('stop-game');
+    const timerInput = document.getElementById('timer-input');
+    const timerDisplay = document.getElementById('timer');
+    const scoreDisplay = document.getElementById('score');
+    const mainMenuButton = document.getElementById('main-menu-button');
+
+    let darkMode = true;
+    let timer = 20;
+    let score = 0;
+    let gameInterval;
+    let isRandomSizeMode = true;
+    let isInfiniteMode = false;
+
+    // Move the target so it doesn't overlap with the UI
+    function moveTarget() {
+      const targetSize = isRandomSizeMode ? Math.random() * 70 + 30 : 50; // Random size or fixed size
+      target.style.width = `${targetSize}px`;
+      target.style.height = `${targetSize}px`;
+
+      const maxX = window.innerWidth - targetSize - 100; 
+      const maxY = window.innerHeight - targetSize - 100;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      target.style.left = `${x}px`;
+      target.style.top = `${y}px`;
+    }
+
+    // Start the game
+    function startGame(randomSize, infiniteMode) {
+      isRandomSizeMode = randomSize;
+      isInfiniteMode = infiniteMode;
+      score = 0;
+      timer = isInfiniteMode ? 0 : parseInt(timerInput.value) || 20; // Use input timer for timed modes
+      scoreDisplay.textContent = score;
+      timerDisplay.textContent = timer;
+
+      startScreen.style.display = 'none';
+      gameInfo.style.display = 'block';
+      target.style.display = 'block';
+
+      moveTarget();
+
+      if (!isInfiniteMode) {
+        gameInterval = setInterval(() => {
+          timer--;
+          timerDisplay.textContent = timer;
+
+          if (timer <= 0) {
+            endGame();
+          }
+        }, 1000);
+      }
+    }
+
+    // End the game
+    function endGame() {
+      clearInterval(gameInterval);
+      alert(`Game Over! Your score is ${score}.`);
+      resetGame();
+    }
+
+    // Reset the game
+    function resetGame() {
+      startScreen.style.display = 'flex';
+      gameInfo.style.display = 'none';
+      target.style.display = 'none';
+      clearInterval(gameInterval);
+    }
+
+    // Handle target clicks
+    target.addEventListener('click', () => {
+      score++;
+      scoreDisplay.textContent = score;
+      moveTarget();
+    });
+
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', () => {
+      darkMode = !darkMode;
+      document.body.style.backgroundColor = darkMode ? '#121212' : '#f0f0f0';
+      themeToggle.textContent = darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+    });
+
+    // Stop the game manually
+    stopGameButton.addEventListener('click', endGame);
+
+    // Start buttons
+    randomSizeModeButton.addEventListener('click', () => startGame(true, false));
+    regularModeButton.addEventListener('click', () => startGame(false, false));
+    infiniteModeButton.addEventListener('click', () => startGame(true, true));
+  </script>
+</body>
+</html>
